@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova | Premium Access</title>
+    <!-- External Icons and Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="shortcut icon" type="image/png" href="tecNove (2).png">
+</head>
+
+<body>
+
+    <!-- Animated Background Blobs (The "Plazz") -->
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="main-container" id="container">
+        <!-- Left Brand Section - Based on tecNove (1).png -->
+        <div class="brand-section">
+            <img src="tecNove (1).png" alt="TechNova Logo">
+        </div>
+
+        <!-- Right Forms Section -->
+        <div class="forms-section">
+
+            <!-- Login Form (Welcome back) -->
+            <div class="form-content login-form" id="loginForm">
+                <div class="form-header">
+                    <span>TechNova | Premium</span>
+                    <h2>Welcome Back</h2>
+                    <p>Enter your details to access your workspace.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Email or Phone Number</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="text" placeholder="name@example.com" spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div class="options-row">
+                    <label class="remember-me">
+                        <input type="checkbox">
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+                </div>
+
+                <button class="btn-primary" type="button">Sign in</button>
+
+                <button class="btn-google" type="button">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                    Sign in with Google
+                </button>
+
+                <div class="form-footer">
+                    Don't have an account? <a href="#" id="signUpBtn">Sign up</a>
+                </div>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="form-content signup-form" id="signupForm">
+                <div class="form-header">
+                    <span>Join TechNova</span>
+                    <h2>Create Account</h2>
+                    <p>Start your journey with our advanced workspace.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Full Name</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" placeholder="John Doe" spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" placeholder="name@example.com" spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <button class="btn-primary" type="button">Create Account</button>
+
+                <div class="form-footer">
+                    Already have an account? <a href="#" id="signInBtn">Sign in</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Logic for switch and animations -->
+    <script src="script2.js"></script>
+</body>
+
+</html>

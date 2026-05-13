@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'light-mode') {
+                document.documentElement.classList.add('light-mode');
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.body.classList.add('light-mode');
+                    document.documentElement.classList.remove('light-mode');
+                });
+            }
+        })();
+    </script>
+    <title>Enterprise Servers | TechNova | Premium Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Orbitron:wght@400;600;700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="tecNove (2).png">
+</head>
+
+<body>
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Navigation Pods (Mirrored from index.html) -->
+    <nav class="nav-pods">
+        <div class="nav-pod logo-pod">
+            <img src="tecNove.png" class="logo" alt="TechNova Logo">
+        </div>
+
+        <div class="nav-pod links-pod">
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="about.html">ABOUT</a>
+                <a href="server.html" class="active">SERVERS</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="link/phone.html">MOBILE PHONE</a>
+                <a href="#">BUILD PC</a>
+            </div>
+            <button class="menu-pill" id="menu-toggle">
+                <div class="menu-icon">
+                    <span></span><span></span><span></span>
+                </div>
+                <span>Menu</span>
+            </button>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="#">Laptops</a>
+                <a href="#">Gaming PCs</a>
+                <a href="#">Components</a>
+                <a href="#">Accessories</a>
+            </div>
+        </div>
+
+        <div class="nav-pod search-theme-pod">
+            <div class="search-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="nav-pod location-pod">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+        </div>
+
+        <div class="nav-pod actions-pod">
+            <a href="loginfrom.html" class="login-btn-nav">Login</a>
+            <div class="divider"></div>
+            <div class="cart-btn-nav">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="8" cy="21" r="1"></circle>
+                    <circle cx="19" cy="21" r="1"></circle>
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                </svg>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Server Hero Section -->
+    <section class="server-hero">
+        <img src="datacenter_hero_v2_1774450028517.png" class="hero-bg-image" alt="Data Center">
+        <div class="hero-content">
+            <h1>ENTERPRISE SOLUTIONS</h1>
+            <p>Powering the next generation of digital infrastructure. From scalable cloud clusters to high-performance AI computation, TechNova provides the backbone for your success.</p>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="bottom-features">
+        <!-- Sidebar -->
+        <aside class="feature-col popup-list-col sticky">
+            <div class="popup-item" onclick="window.location.href='link/Processors.html'" style="cursor: pointer;">Processors</div>
+            <div class="popup-item" onclick="window.location.href='link/graphic.html'" style="cursor: pointer;">Graphic Card</div>
+            <div class="popup-item" onclick="window.location.href='link/Motherboards.html'" style="cursor: pointer;">Motherboards</div>
+            <div class="popup-item" onclick="window.location.href='link/phone.html'" style="cursor: pointer;">Mobile Phone</div>
+            <div class="popup-item active" onclick="window.location.href='server.html'" style="cursor: pointer;">Servers</div>
+            <div class="popup-item">Laptop</div>
+            <div class="popup-item">RAM Memory</div>
+            <div class="popup-item">Power Supply</div>
+            <div class="popup-item">Storage SSD</div>
+        </aside>
+
+        <div class="right-column">
+            <!-- Filter Bar -->
+            <div class="server-filters">
+                <button class="filter-btn active" data-filter="all">ALL UNITS</button>
+                <button class="filter-btn" data-filter="rack">RACK MOUNT</button>
+                <button class="filter-btn" data-filter="tower">TOWER SYSTEMS</button>
+                <button class="filter-btn" data-filter="hpc">AI & HPC</button>
+            </div>
+
+            <!-- Server Grid -->
+            <div class="server-grid" id="server-list">
+                <!-- Rack Server 1 -->
+                <div class="server-card" data-category="rack">
+                    <div class="server-img-wrapper">
+                        <img src="image/qWLGRyQhfhNP2v6f368GPIqtIHje430V.png" alt="Enterprise Rack Server">
+                    </div>
+                    <div class="server-info">
+                        <div class="server-status">
+                            <span class="status-dot"></span>
+                            ONLINE | FULLY REDUNDANT
+                        </div>
+                        <h3 class="server-title">NovaRack X1-2U</h3>
+                        <ul class="server-specs">
+                            <li>Dual Intel Xeon Scalable Gen 4</li>
+                            <li>Up to 2TB DDR5 ECC RAM</li>
+                            <li>64TB NVMe Enterprise Storage</li>
+                            <li>Triple Redundant 1200W PSU</li>
+                        </ul>
+                    </div>
+                    <div class="server-footer">
+                        <div class="server-price">$4,299</div>
+                        <button class="configure-btn">CONFIGURE</button>
+                    </div>
+                </div>
+
+                <!-- AI Server 2 -->
+                <div class="server-card" data-category="hpc">
+                    <div class="server-img-wrapper">
+                        <img src="gpu_server_ai_1774449737911.png" alt="AI Server">
+                    </div>
+                    <div class="server-info">
+                        <div class="server-status">
+                            <span class="status-dot" style="background: var(--server-magenta); box-shadow: 0 0 10px var(--server-magenta);"></span>
+                            HIGH LOAD | AI OPTIMIZED
+                        </div>
+                        <h3 class="server-title">NovaCompute G-X8</h3>
+                        <ul class="server-specs">
+                            <li>8x NVIDIA H100 Tensor Core</li>
+                            <li>Dual AMD EPYC 9004 CPUs</li>
+                            <li>Liquid Cooling System</li>
+                            <li>InfiniBand NDR Connectivity</li>
+                        </ul>
+                    </div>
+                    <div class="server-footer">
+                        <div class="server-price">$89,900</div>
+                        <button class="configure-btn">REQUEST QUOTE</button>
+                    </div>
+                </div>
+
+                <!-- Tower Server 3 -->
+                <div class="server-card" data-category="tower">
+                    <div class="server-img-wrapper">
+                        <img src="image/abxdDm5HrrojfYmyq66JEizKVWaQ5tk6.png" alt="Tower Server">
+                    </div>
+                    <div class="server-info">
+                        <div class="server-status">
+                            <span class="status-dot"></span>
+                            STANDBY | SILENCE OPTIMIZED
+                        </div>
+                        <h3 class="server-title">NovaTower T5-Workstation</h3>
+                        <ul class="server-specs">
+                            <li>Intel Core i9-14900KS</li>
+                            <li>128GB DDR5 6000MHz</li>
+                            <li>NVIDIA RTX 6000 Ada</li>
+                            <li>Acoustic Shielding Chassis</li>
+                        </ul>
+                    </div>
+                    <div class="server-footer">
+                        <div class="server-price">$2,850</div>
+                        <button class="configure-btn">CONFIGURE</button>
+                    </div>
+                </div>
+                <!-- Additional Row of Servers -->
+                <div class="server-card" data-category="rack">
+                    <div class="server-img-wrapper">
+                        <img src="image/0sIFk0MI5W2JSmrooRxpsCkERe6uoqn7.png" alt="Storage Server">
+                    </div>
+                    <div class="server-info">
+                        <div class="server-status">
+                            <span class="status-dot" style="background: #ffcc00; box-shadow: 0 0 10px #ffcc00;"></span>
+                            BACKUP | RAID 6 ENABLED
+                        </div>
+                        <h3 class="server-title">NovaArchive S-500</h3>
+                        <ul class="server-specs">
+                            <li>2x Platinum Scalable CPUs</li>
+                            <li>512GB ECC DDR5</li>
+                            <li>PB-Scale Storage Capacity</li>
+                            <li>Hot-Swappable Drive Bays</li>
+                        </ul>
+                    </div>
+                    <div class="server-footer">
+                        <div class="server-price">$6,150</div>
+                        <button class="configure-btn">CONFIGURE</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reliability Section -->
+            <div class="config-container">
+                <div class="config-title">
+                    <h2>WHY TECHNOVA ENTERPRISE?</h2>
+                </div>
+                <div class="config-grid">
+                    <div class="server-info">
+                        <h3 class="server-title">99.99% UPTIME GUARANTEE</h3>
+                        <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">Our hardware is tested under extreme thermal and load conditions to ensure your mission-critical applications never fail. With redundant power and cooling, NovaRack stays cool under pressure.</p>
+                    </div>
+                    <div class="server-info">
+                        <h3 class="server-title">GLOBAL COMPLIANCE</h3>
+                        <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">From GDPR to SOC2, our systems are built with security at the hardware level. Trusted by government agencies and international banks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info & Footer (Mirrored from index.html) -->
+    <section class="info-section">
+        <div class="footer-nav-grid">
+            <div class="footer-col">
+                <h4>ENTERPRISE</h4>
+                <ul>
+                    <li><a href="#">Server Maintenance</a></li>
+                    <li><a href="#">Cloud Migration</a></li>
+                    <li><a href="#">Security Audit</a></li>
+                    <li><a href="#">Custom Rack Builds</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>SUPPORT</h4>
+                <ul>
+                    <li><a href="#">24/7 Monitoring</a></li>
+                    <li><a href="#">SLA Agreements</a></li>
+                    <li><a href="#">Hardware Warranty</a></li>
+                    <li><a href="#">Knowledge Base</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>TECH NOVA</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Locations</a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer-bar">
+            <div class="footer-left">Nanotek Computer Solutions &copy; 2026 | All Rights Reserved.</div>
+            <div class="social-links">
+                <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+                <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter/X"></a>
+            </div>
+        </footer>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="script3.js"></script>
+</body>
+
+</html>

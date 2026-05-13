@@ -1,0 +1,283 @@
+/* TechNova Servers Page Styles (Extending style.css) */
+
+:root {
+    --server-cyan: #00ffff;
+    --server-magenta: #ff00ff;
+    --glass-bg: rgba(20, 20, 20, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+.server-hero {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: saturate(1.2) contrast(1.1);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    border: 1px solid var(--glass-border);
+    max-width: 800px;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 56px;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.hero-content p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+/* Category Filter Bar */
+.server-filters {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.filter-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 12px 30px;
+    border-radius: 30px;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--server-cyan);
+    color: #000;
+    border-color: var(--server-cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Server Product Grid */
+.server-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.server-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.server-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--server-cyan);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.server-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--server-cyan), var(--server-magenta));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.server-card:hover::before {
+    opacity: 1;
+}
+
+.server-img-wrapper {
+    width: 100%;
+    height: 250px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.server-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.server-info {
+    padding: 25px;
+    flex-grow: 1;
+}
+
+.server-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--server-cyan);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--server-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--server-cyan);
+    animation: pulse 2s infinite;
+}
+
+.server-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.server-specs {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.server-specs li {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.server-specs li::before {
+    content: '▶';
+    font-size: 8px;
+    color: var(--server-magenta);
+}
+
+.server-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.server-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: var(--server-cyan);
+    font-weight: 700;
+}
+
+.configure-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.configure-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* Configurator Section */
+.config-container {
+    padding: 60px 40px;
+    background: var(--card-bg);
+    margin: 60px 0;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+}
+
+.config-title h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.config-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+/* Light Mode Overrides */
+body.light-mode .server-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .server-title {
+    color: #1a1a1b;
+}
+
+body.light-mode .server-specs li {
+    color: #555;
+}
+
+body.light-mode .hero-content {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.light-mode .hero-content h1 {
+    color: #000;
+}
+
+body.light-mode .hero-content p {
+    color: #333;
+}
