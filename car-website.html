@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX MOTORS — Driven by Instinct</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --red: #e63025;
+    --red-dim: #a01e15;
+    --white: #f2ede6;
+    --gray: #1c1c1c;
+    --mid: #2e2e2e;
+    --text-muted: #888;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: exclusion;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(230,48,37,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.3s, height 0.3s;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 60px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .logo span { color: var(--red); }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--red);
+    color: var(--white) !important;
+    padding: 10px 24px;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.25em !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--red-dim) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--black);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(230,48,37,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(230,48,37,0.04) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 60px;
+    max-width: 700px;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.2s;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    animation: fadeUp 0.9s ease forwards;
+    opacity: 0;
+    animation-delay: 0.4s;
+  }
+  .hero-title .accent { color: var(--red); }
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 420px;
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+    animation-delay: 0.65s;
+  }
+  .hero-actions {
+    margin-top: 48px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+    animation-delay: 0.85s;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 16px 40px;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-dim); transform: translateY(-2px); }
+  .btn-ghost {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--mid);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+  /* CAR SVG ILLUSTRATION */
+  .hero-car {
+    position: absolute;
+    right: -40px;
+    bottom: 10%;
+    width: 55%;
+    animation: slideIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    animation-delay: 0.6s;
+    filter: drop-shadow(-40px 20px 60px rgba(230,48,37,0.15));
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+    animation-delay: 1.2s;
+  }
+  .scroll-line {
+    width: 48px;
+    height: 1px;
+    background: var(--red);
+    transform-origin: left;
+    animation: expandLine 1s ease forwards;
+    animation-delay: 1.4s;
+    transform: scaleX(0);
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--gray);
+    border-top: 1px solid var(--mid);
+    border-bottom: 1px solid var(--mid);
+    padding: 32px 60px;
+    display: flex;
+    gap: 0;
+  }
+  .stat-item {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid var(--mid);
+    padding: 0 20px;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-num .unit { color: var(--red); font-size: 2rem; }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* MODELS SECTION */
+  .section {
+    padding: 120px 60px;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+  }
+  .section-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: 0.03em;
+  }
+  .section-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--mid);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+    white-space: nowrap;
+    margin-bottom: 8px;
+  }
+  .section-link:hover { color: var(--white); }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2px;
+  }
+  .model-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--gray);
+    aspect-ratio: 4/5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: none;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .model-card:hover { transform: translateY(-6px); }
+  .model-card:first-child { aspect-ratio: 3/4; grid-row: span 1; }
+  .model-card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .model-card:hover .model-card-bg { transform: scale(1.05); }
+  .model-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.1) 60%, transparent 100%);
+  }
+  .model-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 32px;
+  }
+  .model-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .model-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .model-price {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .model-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: var(--red);
+    margin-top: 16px;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+  }
+  .model-card:hover .model-arrow { background: var(--red-dim); }
+
+  /* Car SVG Placeholders */
+  .car-bg-1 { background: linear-gradient(135deg, #1a1a1a 0%, #2d1f1f 100%); }
+  .car-bg-2 { background: linear-gradient(135deg, #1a1a1a 0%, #1f2a2d 100%); }
+  .car-bg-3 { background: linear-gradient(135deg, #1a1a1a 0%, #1f1f2d 100%); }
+
+  /* FEATURE SECTION */
+  .features {
+    background: var(--gray);
+    padding: 120px 60px;
+  }
+  .features-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .features-visual {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .features-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(230,48,37,0.15);
+    animation: rotate 20s linear infinite;
+  }
+  .features-ring:nth-child(1) { width: 80%; height: 80%; }
+  .features-ring:nth-child(2) { width: 60%; height: 60%; animation-duration: 15s; animation-direction: reverse; border-color: rgba(230,48,37,0.08); }
+  .features-ring:nth-child(3) { width: 40%; height: 40%; animation-duration: 10s; }
+  .features-center {
+    width: 100px; height: 100px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    z-index: 2;
+  }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 32px; }
+  .feature-item {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--mid);
+  }
+  .feature-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .feature-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--red);
+    line-height: 1;
+    min-width: 60px;
+  }
+  .feature-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .feature-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 120px 60px;
+    background: var(--black);
+  }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+  .testimonial-card {
+    background: var(--gray);
+    padding: 48px 40px;
+    position: relative;
+  }
+  .testimonial-quote {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: var(--red);
+    line-height: 0.5;
+    margin-bottom: 24px;
+    opacity: 0.4;
+  }
+  .testimonial-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--white);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .testimonial-author {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .testimonial-role {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--red);
+    padding: 100px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    max-width: 600px;
+  }
+  .btn-white {
+    background: var(--white);
+    color: var(--black);
+    padding: 18px 48px;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+    cursor: none;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+  }
+  .btn-white:hover { background: #ddd; transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--gray);
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--mid);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes expandLine {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* INLINE SVG CARS */
+  .svg-car-hero svg, .svg-car-card svg {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">APEX<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#models">Models</a></li>
+    <li><a href="#features">Performance</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Test Drive</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">2026 Collection Now Available</p>
+    <h1 class="hero-title">BORN<br>TO <span class="accent">RULE</span><br>THE ROAD</h1>
+    <p class="hero-sub">Engineering meets obsession. Every curve calculated, every engine tuned to perfection. This is not just a car — it's an extension of your will.</p>
+    <div class="hero-actions">
+      <a href="#models" class="btn-primary">Explore Models</a>
+      <a href="#features" class="btn-ghost">Performance →</a>
+    </div>
+  </div>
+
+  <!-- Hero Car SVG -->
+  <div class="hero-car">
+    <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Car body shadow -->
+      <ellipse cx="400" cy="295" rx="320" ry="18" fill="rgba(0,0,0,0.4)"/>
+      <!-- Main car body -->
+      <path d="M 80 220 L 100 200 L 160 160 L 240 130 L 420 118 L 560 130 L 640 170 L 680 210 L 700 230 L 80 230 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+      <!-- Car roof -->
+      <path d="M 200 200 L 240 145 L 380 120 L 520 122 L 580 155 L 620 195 L 200 200 Z" fill="#252525" stroke="#3a3a3a" stroke-width="1"/>
+      <!-- Windshield -->
+      <path d="M 260 195 L 290 148 L 390 125 L 440 130 L 440 195 Z" fill="rgba(100,180,255,0.08)" stroke="rgba(100,180,255,0.2)" stroke-width="1.5"/>
+      <!-- Rear window -->
+      <path d="M 460 195 L 460 128 L 520 130 L 570 155 L 600 190 Z" fill="rgba(100,180,255,0.06)" stroke="rgba(100,180,255,0.15)" stroke-width="1.5"/>
+      <!-- Side window -->
+      <path d="M 285 192 L 290 148 L 380 125 L 440 130 L 440 192 Z" fill="rgba(100,180,255,0.05)"/>
+      <!-- Door lines -->
+      <line x1="360" y1="130" x2="358" y2="225" stroke="#333" stroke-width="1"/>
+      <line x1="460" y1="128" x2="460" y2="225" stroke="#333" stroke-width="1"/>
+      <!-- Headlight -->
+      <ellipse cx="682" cy="205" rx="22" ry="10" fill="#e63025" opacity="0.9"/>
+      <ellipse cx="682" cy="205" rx="14" ry="6" fill="rgba(255,150,100,0.6)"/>
+      <!-- Front DRL -->
+      <line x1="656" y1="198" x2="704" y2="200" stroke="#e63025" stroke-width="2" opacity="0.5"/>
+      <!-- Taillight -->
+      <ellipse cx="108" cy="210" rx="18" ry="8" fill="#e63025" opacity="0.8"/>
+      <ellipse cx="108" cy="210" rx="10" ry="5" fill="rgba(255,100,80,0.5)"/>
+      <!-- Front bumper -->
+      <path d="M 660 225 L 710 225 L 720 240 L 650 242 Z" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
+      <!-- Grille -->
+      <rect x="668" y="215" width="38" height="14" rx="2" fill="#111" stroke="#e63025" stroke-width="0.5"/>
+      <line x1="675" y1="215" x2="675" y2="229" stroke="#222" stroke-width="1"/>
+      <line x1="683" y1="215" x2="683" y2="229" stroke="#222" stroke-width="1"/>
+      <line x1="691" y1="215" x2="691" y2="229" stroke="#222" stroke-width="1"/>
+      <line x1="699" y1="215" x2="699" y2="229" stroke="#222" stroke-width="1"/>
+      <!-- Rear bumper -->
+      <path d="M 80 228 L 130 228 L 130 242 L 70 242 Z" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
+      <!-- Front wheel -->
+      <circle cx="590" cy="255" r="42" fill="#111" stroke="#333" stroke-width="2"/>
+      <circle cx="590" cy="255" r="32" fill="#0d0d0d" stroke="#252525" stroke-width="1.5"/>
+      <circle cx="590" cy="255" r="18" fill="#1a1a1a" stroke="#e63025" stroke-width="1"/>
+      <circle cx="590" cy="255" r="6" fill="#e63025"/>
+      <!-- Wheel spokes front -->
+      <line x1="590" y1="237" x2="590" y2="273" stroke="#2a2a2a" stroke-width="2"/>
+      <line x1="572" y1="255" x2="608" y2="255" stroke="#2a2a2a" stroke-width="2"/>
+      <line x1="577" y1="242" x2="603" y2="268" stroke="#2a2a2a" stroke-width="1.5"/>
+      <line x1="603" y1="242" x2="577" y2="268" stroke="#2a2a2a" stroke-width="1.5"/>
+      <!-- Rear wheel -->
+      <circle cx="200" cy="255" r="42" fill="#111" stroke="#333" stroke-width="2"/>
+      <circle cx="200" cy="255" r="32" fill="#0d0d0d" stroke="#252525" stroke-width="1.5"/>
+      <circle cx="200" cy="255" r="18" fill="#1a1a1a" stroke="#e63025" stroke-width="1"/>
+      <circle cx="200" cy="255" r="6" fill="#e63025"/>
+      <line x1="200" y1="237" x2="200" y2="273" stroke="#2a2a2a" stroke-width="2"/>
+      <line x1="182" y1="255" x2="218" y2="255" stroke="#2a2a2a" stroke-width="2"/>
+      <line x1="187" y1="242" x2="213" y2="268" stroke="#2a2a2a" stroke-width="1.5"/>
+      <line x1="213" y1="242" x2="187" y2="268" stroke="#2a2a2a" stroke-width="1.5"/>
+      <!-- Roof spoiler -->
+      <path d="M 580 145 L 600 138 L 615 145 L 600 148 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+      <!-- Side stripe -->
+      <path d="M 140 198 L 620 192" stroke="#e63025" stroke-width="1.5" opacity="0.3"/>
+      <!-- APEX badge -->
+      <rect x="340" y="220" width="60" height="10" rx="1" fill="#e63025" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to Discover
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">0–60<span class="unit">mph</span></div>
+    <div class="stat-label">2.9 Seconds</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">720<span class="unit">hp</span></div>
+    <div class="stat-label">Peak Power</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">211<span class="unit">mph</span></div>
+    <div class="stat-label">Top Speed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">8<span class="unit">yr</span></div>
+    <div class="stat-label">Warranty</div>
+  </div>
+</div>
+
+<!-- MODELS -->
+<section class="section" id="models">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Our Lineup</p>
+      <h2 class="section-title">CHOOSE YOUR<br>WEAPON</h2>
+    </div>
+    <a href="#" class="section-link">View all models →</a>
+  </div>
+  <div class="models-grid">
+    <!-- Model 1 -->
+    <div class="model-card">
+      <div class="model-card-bg car-bg-1" style="display:flex;align-items:center;justify-content:center;padding:40px;">
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" fill="none" style="width:100%;max-width:420px;opacity:0.7;">
+          <ellipse cx="250" cy="185" rx="210" ry="12" fill="rgba(0,0,0,0.3)"/>
+          <path d="M 40 130 L 60 115 L 120 85 L 220 68 L 360 70 L 440 110 L 460 130 L 40 135 Z" fill="#2a2a2a" stroke="#444" stroke-width="1"/>
+          <path d="M 120 128 L 140 88 L 260 70 L 340 75 L 380 100 L 400 125 Z" fill="#333" stroke="#555" stroke-width="1"/>
+          <path d="M 155 122 L 165 90 L 265 72 L 300 78 L 300 122 Z" fill="rgba(80,150,255,0.1)" stroke="rgba(80,150,255,0.25)" stroke-width="1.5"/>
+          <circle cx="370" cy="160" r="28" fill="#111" stroke="#444" stroke-width="1.5"/>
+          <circle cx="370" cy="160" r="18" fill="#0d0d0d" stroke="#e63025" stroke-width="1"/>
+          <circle cx="370" cy="160" r="7" fill="#e63025"/>
+          <circle cx="120" cy="160" r="28" fill="#111" stroke="#444" stroke-width="1.5"/>
+          <circle cx="120" cy="160" r="18" fill="#0d0d0d" stroke="#e63025" stroke-width="1"/>
+          <circle cx="120" cy="160" r="7" fill="#e63025"/>
+          <ellipse cx="445" cy="122" rx="14" ry="7" fill="#e63025" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="model-card-overlay"></div>
+      <div class="model-card-content">
+        <p class="model-tag">Supercar</p>
+        <p class="model-name">APEX GT-R</p>
+        <p class="model-price">From $284,000</p>
+        <div class="model-arrow">→</div>
+      </div>
+    </div>
+    <!-- Model 2 -->
+    <div class="model-card">
+      <div class="model-card-bg car-bg-2" style="display:flex;align-items:center;justify-content:center;padding:30px;">
+        <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" fill="none" style="width:100%;opacity:0.65;">
+          <ellipse cx="200" cy="165" rx="165" ry="10" fill="rgba(0,0,0,0.3)"/>
+          <path d="M 30 115 L 55 100 L 100 72 L 200 58 L 300 60 L 360 95 L 375 118 L 30 122 Z" fill="#222" stroke="#383838" stroke-width="1"/>
+          <path d="M 100 115 L 120 75 L 210 60 L 280 64 L 315 90 L 330 112 Z" fill="#2d2d2d" stroke="#444" stroke-width="1"/>
+          <path d="M 128 110 L 138 78 L 210 62 L 248 68 L 248 110 Z" fill="rgba(80,200,180,0.08)" stroke="rgba(80,200,180,0.2)" stroke-width="1"/>
+          <circle cx="295" cy="140" r="24" fill="#111" stroke="#444" stroke-width="1.5"/>
+          <circle cx="295" cy="140" r="15" fill="#0d0d0d" stroke="#e63025" stroke-width="1"/>
+          <circle cx="295" cy="140" r="6" fill="#e63025"/>
+          <circle cx="90" cy="140" r="24" fill="#111" stroke="#444" stroke-width="1.5"/>
+          <circle cx="90" cy="140" r="15" fill="#0d0d0d" stroke="#e63025" stroke-width="1"/>
+          <circle cx="90" cy="140" r="6" fill="#e63025"/>
+          <ellipse cx="362" cy="108" rx="11" ry="6" fill="#e63025" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="model-card-overlay"></div>
+      <div class="model-card-content">
+        <p class="model-tag">Gran Turismo</p>
+        <p class="model-name">APEX S7</p>
+        <p class="model-price">From $178,000</p>
+        <div class="model-arrow">→</div>
+      </div>
+    </div>
+    <!-- Model 3 -->
+    <div class="model-card">
+      <div class="model-card-bg car-bg-3" style="display:flex;align-items:center;justify-content:center;padding:30px;">
+        <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" fill="none" style="width:100%;opacity:0.65;">
+          <ellipse cx="200" cy="162" rx="160" ry="10" fill="rgba(0,0,0,0.3)"/>
+          <path d="M 35 118 L 60 102 L 110 78 L 200 62 L 295 65 L 350 100 L 368 120 L 35 125 Z" fill="#202030" stroke="#383858" stroke-width="1"/>
+          <path d="M 110 118 L 128 80 L 210 64 L 270 68 L 308 95 L 322 116 Z" fill="#282838" stroke="#40406a" stroke-width="1"/>
+          <path d="M 136 113 L 145 82 L 212 66 L 240 72 L 240 113 Z" fill="rgba(120,80,255,0.07)" stroke="rgba(120,80,255,0.18)" stroke-width="1"/>
+          <circle cx="286" cy="138" r="24" fill="#111" stroke="#40406a" stroke-width="1.5"/>
+          <circle cx="286" cy="138" r="15" fill="#0d0d0d" stroke="#e63025" stroke-width="1"/>
+          <circle cx="286" cy="138" r="6" fill="#e63025"/>
+          <circle cx="96" cy="138" r="24" fill="#111" stroke="#40406a" stroke-width="1.5"/>
+          <circle cx="96" cy="138" r="15" fill="#0d0d0d" stroke="#e63025" stroke-width="1"/>
+          <circle cx="96" cy="138" r="6" fill="#e63025"/>
+          <ellipse cx="352" cy="110" rx="11" ry="6" fill="#e63025" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="model-card-overlay"></div>
+      <div class="model-card-content">
+        <p class="model-tag">Electric</p>
+        <p class="model-name">APEX EV1</p>
+        <p class="model-price">From $142,000</p>
+        <div class="model-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-inner">
+    <div class="features-visual">
+      <div class="features-ring"></div>
+      <div class="features-ring"></div>
+      <div class="features-ring"></div>
+      <div class="features-center">APEX</div>
+    </div>
+    <div>
+      <p class="section-eyebrow">Why Apex</p>
+      <h2 class="section-title" style="margin-bottom:48px;">ENGINEERED<br>DIFFERENT</h2>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <span class="feature-num">01</span>
+          <div>
+            <p class="feature-title">Twin-Turbo V12 Engine</p>
+            <p class="feature-desc">Hand-assembled by master engineers, our proprietary 6.2L twin-turbo V12 delivers 720 horsepower with surgical precision and a sound that cannot be replicated.</p>
+          </div>
+        </li>
+        <li class="feature-item">
+          <span class="feature-num">02</span>
+          <div>
+            <p class="feature-title">Active Aerodynamics</p>
+            <p class="feature-desc">Intelligent aero systems adjust in real time — 200ms response — to optimize downforce and drag across every driving condition, track or highway.</p>
+          </div>
+        </li>
+        <li class="feature-item">
+          <span class="feature-num">03</span>
+          <div>
+            <p class="feature-title">Carbon Fibre Monocoque</p>
+            <p class="feature-desc">The entire chassis is crafted from aerospace-grade carbon fibre, shaving weight while delivering a torsional rigidity that redefines what's possible.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Owners Speak</p>
+      <h2 class="section-title">NOTHING<br>COMPARES</h2>
+    </div>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Three years of ownership and it still gives me goosebumps every single morning. Apex didn't build me a car — they gave me a religion.</p>
+      <p class="testimonial-author">Marcus Chen</p>
+      <p class="testimonial-role">GT-R Owner, Hong Kong</p>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">I've driven Ferraris, Lamborghinis, McLarens. The Apex GT-R is in a different category. It's the most complete performance car I've ever sat in.</p>
+      <p class="testimonial-author">Elisa Ferreira</p>
+      <p class="testimonial-role">Racing Driver, São Paulo</p>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">The EV1 changed everything I thought I knew about electric vehicles. Silent, savage, and surgically precise. Zero compromises.</p>
+      <p class="testimonial-author">James Holloway</p>
+      <p class="testimonial-role">EV1 Owner, London</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2 class="cta-title">READY TO FEEL THE DIFFERENCE?</h2>
+  <a href="#" class="btn-white">Book a Test Drive</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">APEX<span>.</span></span>
+  <ul class="footer-links">
+    <li><a href="#">Models</a></li>
+    <li><a href="#">Technology</a></li>
+    <li><a href="#">Owners</a></li>
+    <li><a href="#">Careers</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 Apex Motors. All rights reserved.</span>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .model-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fadeUp 0.8s ease forwards';
+        e.target.style.opacity = '0';
+        setTimeout(() => { e.target.style.opacity = ''; }, 10);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stat-item, .model-card, .feature-item, .testimonial-card').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Counter animation for stats
+  function animateCounter(el, target, suffix='') {
+    let start = 0;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const val = Math.floor(progress * target);
+      el.textContent = val + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+</script>
+</body>
+</html>
